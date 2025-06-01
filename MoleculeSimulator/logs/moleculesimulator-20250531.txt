@@ -1,0 +1,121 @@
+2025-05-31 23:47:10.945 -04:00 [INF] Executed DbCommand (22ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*) FROM "sqlite_master" WHERE "type" = 'table' AND "rootpage" IS NOT NULL;
+2025-05-31 23:47:11.197 -04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Molecules" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_Molecules" PRIMARY KEY AUTOINCREMENT,
+    "Name" TEXT NOT NULL,
+    "MolecularWeight" REAL NOT NULL,
+    "LogP" REAL NOT NULL,
+    "HydrogenBondDonors" INTEGER NOT NULL,
+    "HydrogenBondAcceptors" INTEGER NOT NULL,
+    "HydrogenAtoms" INTEGER NOT NULL,
+    "CarbonAtoms" INTEGER NOT NULL,
+    "NitrogenAtoms" INTEGER NOT NULL,
+    "OxygenAtoms" INTEGER NOT NULL,
+    "Polarity" REAL NOT NULL,
+    "TherapeuticScore" REAL NOT NULL,
+    "CreatedAt" TEXT NOT NULL DEFAULT (datetime('now'))
+);
+2025-05-31 23:47:11.207 -04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Molecules_CreatedAt" ON "Molecules" ("CreatedAt");
+2025-05-31 23:47:11.215 -04:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Molecules_TherapeuticScore" ON "Molecules" ("TherapeuticScore");
+2025-05-31 23:47:11.395 -04:00 [INF] User profile is available. Using 'C:\Users\dnaal\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-05-31 23:47:11.659 -04:00 [INF] Starting Molecule Simulator application
+2025-05-31 23:47:11.812 -04:00 [INF] Now listening on: http://localhost:5142
+2025-05-31 23:47:11.819 -04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-05-31 23:47:11.822 -04:00 [INF] Hosting environment: Development
+2025-05-31 23:47:11.824 -04:00 [INF] Content root path: D:\Coding\VSCodeProject\PharmaDiscover\MoleculeSimulator
+2025-05-31 23:48:19.390 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/ - null null
+2025-05-31 23:48:19.471 -04:00 [WRN] Failed to determine the https port for redirect.
+2025-05-31 23:48:19.518 -04:00 [INF] Executing endpoint '/_Host'
+2025-05-31 23:48:19.571 -04:00 [INF] Route matched with {page = "/_Host", action = "", controller = ""}. Executing page /_Host
+2025-05-31 23:48:19.595 -04:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-05-31 23:48:19.598 -04:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-05-31 23:48:19.910 -04:00 [INF] Executed page /_Host in 332.7919ms
+2025-05-31 23:48:19.916 -04:00 [INF] Executed endpoint '/_Host'
+2025-05-31 23:48:19.926 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/ - 200 null text/html; charset=utf-8 545.685ms
+2025-05-31 23:48:19.961 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/MoleculeSimulator.styles.css - null null
+2025-05-31 23:48:19.961 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/css/site.css - null null
+2025-05-31 23:48:19.961 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/css/bootstrap/bootstrap.min.css - null null
+2025-05-31 23:48:19.964 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/js/app.js - null null
+2025-05-31 23:48:19.964 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/_framework/blazor.server.js - null null
+2025-05-31 23:48:19.989 -04:00 [INF] The file /MoleculeSimulator.styles.css was not modified
+2025-05-31 23:48:19.989 -04:00 [INF] The file /css/bootstrap/bootstrap.min.css was not modified
+2025-05-31 23:48:19.989 -04:00 [INF] The file /js/app.js was not modified
+2025-05-31 23:48:20.002 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/MoleculeSimulator.styles.css - 304 null text/css 40.4253ms
+2025-05-31 23:48:20.004 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/css/bootstrap/bootstrap.min.css - 304 null text/css 42.6889ms
+2025-05-31 23:48:20.006 -04:00 [INF] Executing endpoint 'Blazor static files'
+2025-05-31 23:48:20.008 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/js/app.js - 304 null text/javascript 43.7826ms
+2025-05-31 23:48:20.024 -04:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: 'D:\Coding\VSCodeProject\PharmaDiscover\MoleculeSimulator\wwwroot\css\site.css'
+2025-05-31 23:48:20.037 -04:00 [INF] The file /_framework/blazor.server.js was not modified
+2025-05-31 23:48:20.046 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/css/site.css - 200 12171 text/css 85.0044ms
+2025-05-31 23:48:20.051 -04:00 [INF] Executed endpoint 'Blazor static files'
+2025-05-31 23:48:20.060 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/css/open-iconic/font/css/open-iconic-bootstrap.min.css - null null
+2025-05-31 23:48:20.064 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/_framework/blazor.server.js - 304 null text/javascript 98.7633ms
+2025-05-31 23:48:20.074 -04:00 [INF] The file /css/open-iconic/font/css/open-iconic-bootstrap.min.css was not modified
+2025-05-31 23:48:20.084 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/css/open-iconic/font/css/open-iconic-bootstrap.min.css - 304 null text/css 24.2628ms
+2025-05-31 23:48:20.460 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/css/open-iconic/font/fonts/open-iconic.woff - null null
+2025-05-31 23:48:20.469 -04:00 [INF] The file /css/open-iconic/font/fonts/open-iconic.woff was not modified
+2025-05-31 23:48:20.472 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/css/open-iconic/font/fonts/open-iconic.woff - 304 null application/font-woff 13.005ms
+2025-05-31 23:48:20.503 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/_blazor/initializers - null null
+2025-05-31 23:48:20.511 -04:00 [INF] Executing endpoint 'Blazor initializers'
+2025-05-31 23:48:20.527 -04:00 [INF] Executed endpoint 'Blazor initializers'
+2025-05-31 23:48:20.531 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/_blazor/initializers - 200 null application/json; charset=utf-8 27.0976ms
+2025-05-31 23:48:21.357 -04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5142/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-05-31 23:48:21.367 -04:00 [INF] Executing endpoint '/_blazor/negotiate'
+2025-05-31 23:48:21.378 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/favicon.png - null null
+2025-05-31 23:48:21.385 -04:00 [INF] The file /favicon.png was not modified
+2025-05-31 23:48:21.389 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/favicon.png - 304 null image/png 11.0482ms
+2025-05-31 23:48:21.395 -04:00 [INF] Executed endpoint '/_blazor/negotiate'
+2025-05-31 23:48:21.403 -04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5142/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 45.2909ms
+2025-05-31 23:48:21.454 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/_blazor?id=ws4CGIvIHOWY4OCqdIx0kw - null null
+2025-05-31 23:48:21.465 -04:00 [INF] Executing endpoint '/_blazor'
+2025-05-31 23:48:21.890 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/molecules - null null
+2025-05-31 23:48:21.895 -04:00 [INF] Executing endpoint '/_Host'
+2025-05-31 23:48:21.898 -04:00 [INF] Route matched with {page = "/_Host", action = "", controller = ""}. Executing page /_Host
+2025-05-31 23:48:21.901 -04:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-05-31 23:48:21.904 -04:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-05-31 23:48:22.406 -04:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "m"."Id", "m"."CarbonAtoms", "m"."CreatedAt", "m"."HydrogenAtoms", "m"."HydrogenBondAcceptors", "m"."HydrogenBondDonors", "m"."LogP", "m"."MolecularWeight", "m"."Name", "m"."NitrogenAtoms", "m"."OxygenAtoms", "m"."Polarity", "m"."TherapeuticScore"
+FROM "Molecules" AS "m"
+ORDER BY "m"."TherapeuticScore" DESC
+2025-05-31 23:48:22.440 -04:00 [INF] Executed page /_Host in 541.2804ms
+2025-05-31 23:48:22.445 -04:00 [INF] Executed endpoint '/_Host'
+2025-05-31 23:48:22.453 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/molecules - 200 null text/html; charset=utf-8 563.2676ms
+2025-05-31 23:48:22.465 -04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5142/_blazor/disconnect - multipart/form-data; boundary=----WebKitFormBoundaryq2Mh7ZALY1ABRB2a 359
+2025-05-31 23:48:22.472 -04:00 [INF] Executing endpoint 'Blazor disconnect'
+2025-05-31 23:48:22.484 -04:00 [INF] Executed endpoint '/_blazor'
+2025-05-31 23:48:22.493 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/_blazor?id=ws4CGIvIHOWY4OCqdIx0kw - 101 null null 1038.0122ms
+2025-05-31 23:48:22.498 -04:00 [INF] Executed endpoint 'Blazor disconnect'
+2025-05-31 23:48:22.505 -04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5142/_blazor/disconnect - 200 0 null 39.1442ms
+2025-05-31 23:48:22.514 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/_framework/blazor.server.js - null null
+2025-05-31 23:48:22.522 -04:00 [INF] Executing endpoint 'Blazor static files'
+2025-05-31 23:48:22.527 -04:00 [INF] The file /_framework/blazor.server.js was not modified
+2025-05-31 23:48:22.530 -04:00 [INF] Executed endpoint 'Blazor static files'
+2025-05-31 23:48:22.534 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/_framework/blazor.server.js - 304 null text/javascript 20.2227ms
+2025-05-31 23:48:22.651 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/_blazor/initializers - null null
+2025-05-31 23:48:22.655 -04:00 [INF] Executing endpoint 'Blazor initializers'
+2025-05-31 23:48:22.657 -04:00 [INF] Executed endpoint 'Blazor initializers'
+2025-05-31 23:48:22.659 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/_blazor/initializers - 200 null application/json; charset=utf-8 7.7571ms
+2025-05-31 23:48:22.922 -04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5142/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-05-31 23:48:22.929 -04:00 [INF] Executing endpoint '/_blazor/negotiate'
+2025-05-31 23:48:22.931 -04:00 [INF] Executed endpoint '/_blazor/negotiate'
+2025-05-31 23:48:22.935 -04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5142/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 13.3011ms
+2025-05-31 23:48:22.939 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/_blazor?id=Gs4anNVtQvi7bPm2USF_7Q - null null
+2025-05-31 23:48:22.950 -04:00 [INF] Executing endpoint '/_blazor'
+2025-05-31 23:48:23.059 -04:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "m"."Id", "m"."CarbonAtoms", "m"."CreatedAt", "m"."HydrogenAtoms", "m"."HydrogenBondAcceptors", "m"."HydrogenBondDonors", "m"."LogP", "m"."MolecularWeight", "m"."Name", "m"."NitrogenAtoms", "m"."OxygenAtoms", "m"."Polarity", "m"."TherapeuticScore"
+FROM "Molecules" AS "m"
+ORDER BY "m"."TherapeuticScore" DESC
+2025-05-31 23:48:25.160 -04:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "m"."Id", "m"."CarbonAtoms", "m"."CreatedAt", "m"."HydrogenAtoms", "m"."HydrogenBondAcceptors", "m"."HydrogenBondDonors", "m"."LogP", "m"."MolecularWeight", "m"."Name", "m"."NitrogenAtoms", "m"."OxygenAtoms", "m"."Polarity", "m"."TherapeuticScore"
+FROM "Molecules" AS "m"
+ORDER BY "m"."TherapeuticScore" DESC
+2025-05-31 23:48:26.261 -04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5142/_blazor/disconnect - multipart/form-data; boundary=----WebKitFormBoundaryAtTtzrrlNaNffKrD 359
+2025-05-31 23:48:26.348 -04:00 [INF] Executing endpoint 'Blazor disconnect'
+2025-05-31 23:48:26.367 -04:00 [INF] Executed endpoint 'Blazor disconnect'
+2025-05-31 23:48:26.373 -04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5142/_blazor/disconnect - 200 0 null 111.9191ms
+2025-05-31 23:48:26.395 -04:00 [INF] Executed endpoint '/_blazor'
+2025-05-31 23:48:26.399 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/_blazor?id=Gs4anNVtQvi7bPm2USF_7Q - 101 null null 3459.943ms
+2025-05-31 23:48:33.487 -04:00 [INF] Application is shutting down...

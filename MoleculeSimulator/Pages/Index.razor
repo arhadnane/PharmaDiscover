@@ -1,0 +1,110 @@
+﻿@page "/"
+
+<div class="container-fluid">
+    <div class="hero-section text-center py-5 mb-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px;">
+        <h1 class="display-4 fw-bold">🧬 AI Drug Discovery Simulator</h1>
+        <p class="lead">Advanced molecular analysis and therapeutic potential prediction</p>
+        <p class="mb-4">Harness the power of artificial intelligence to discover the next breakthrough in medicine</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <span class="oi oi-cog display-4 text-primary"></span>
+                    </div>
+                    <h5 class="card-title">Generate Molecules</h5>
+                    <p class="card-text">Create synthetic molecular compounds with randomized chemical properties for analysis.</p>
+                    <a href="/generator" class="btn btn-primary">Start Generating</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <span class="oi oi-beaker display-4 text-success"></span>
+                    </div>
+                    <h5 class="card-title">Analyze Molecules</h5>
+                    <p class="card-text">View detailed molecular properties and AI-predicted therapeutic scores.</p>
+                    <a href="/molecules" class="btn btn-success">View Molecules</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <span class="oi oi-bar-chart display-4 text-info"></span>
+                    </div>
+                    <h5 class="card-title">Statistics</h5>
+                    <p class="card-text">Explore data insights and distribution patterns in your molecular database.</p>
+                    <a href="/statistics" class="btn btn-info">View Statistics</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <h3>🎯 How It Works</h3>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex">
+                    <span class="badge bg-primary rounded-pill me-3">1</span>
+                    Generate fictional molecules with realistic chemical properties
+                </li>
+                <li class="list-group-item d-flex">
+                    <span class="badge bg-primary rounded-pill me-3">2</span>
+                    AI algorithms evaluate therapeutic potential using drug-likeness rules
+                </li>
+                <li class="list-group-item d-flex">
+                    <span class="badge bg-primary rounded-pill me-3">3</span>
+                    Rank molecules by predicted efficacy and analyze patterns
+                </li>
+                <li class="list-group-item d-flex">
+                    <span class="badge bg-primary rounded-pill me-3">4</span>
+                    Export results and explore molecular databases
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-6">
+            <h3>🔬 Key Features</h3>
+            <div class="row">
+                <div class="col-6 mb-3">
+                    <div class="feature-box p-3 border rounded">
+                        <strong>Random Generation</strong><br>
+                        <small class="text-muted">Molecular weight, LogP, polarity, atom counts</small>
+                    </div>
+                </div>
+                <div class="col-6 mb-3">
+                    <div class="feature-box p-3 border rounded">
+                        <strong>AI Scoring</strong><br>
+                        <small class="text-muted">Lipinski's rules, drug-likeness prediction</small>
+                    </div>
+                </div>
+                <div class="col-6 mb-3">
+                    <div class="feature-box p-3 border rounded">
+                        <strong>Database Storage</strong><br>
+                        <small class="text-muted">SQLite persistence, search & filtering</small>
+                    </div>
+                </div>
+                <div class="col-6 mb-3">
+                    <div class="feature-box p-3 border rounded">
+                        <strong>RESTful API</strong><br>
+                        <small class="text-muted">Swagger documentation, JSON exports</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert alert-info mt-4" role="alert">
+        <h5 class="alert-heading">📚 Educational Purpose</h5>
+        This simulator uses <strong>fictional molecular data</strong> and simplified AI algorithms for educational and demonstration purposes. 
+        It is not intended for actual drug discovery research.
+    </div>
+</div>

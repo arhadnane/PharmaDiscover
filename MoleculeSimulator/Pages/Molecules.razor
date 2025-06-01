@@ -1,0 +1,396 @@
+@page "/molecules"
+@using MoleculeSimulator.Models
+@using MoleculeSimulator.Services
+@inject IMoleculeDataService DataService
+@inject IScoringService ScoringService
+@inject IJSRuntime JSRuntime
+
+<h2>🧬 Molecule Database</h2>
+<p class="text-muted">Browse and analyze stored molecules</p>
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <div class="input-group">
+            <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
+            <input @bind="searchTerm" @bind:event="oninput" @onkeypress="OnSearchKeyPress" 
+                   class="form-control" placeholder="Search molecules..." />
+            <button class="btn btn-outline-secondary" @onclick="SearchMolecules">Search</button>
+        </div>
+    </div>
+    <div class="col-md-6 text-end">
+        <button class="btn btn-success me-2" @onclick="LoadMolecules">
+            <span class="oi oi-reload"></span> Refresh
+        </button>
+        <button class="btn btn-primary" @onclick="ExportAll">
+            <span class="oi oi-data-transfer-download"></span> Export All
+        </button>
+    </div>
+</div>
+
+@if (isLoading)
+{
+    <div class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2 text-muted">Loading molecules...</p>
+    </div>
+}
+else if (molecules?.Any() == true)
+{
+    <div class="card">
+        <div class="card-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h5 class="mb-0">Molecules (@molecules.Count)</h5>
+                </div>
+                <div class="col-auto">
+                    <div class="btn-group btn-group-sm" role="group">
+                        <input type="radio" class="btn-check" name="sortOptions" id="sortScore" checked="@(sortBy == "score")" @onchange="@(() => ChangeSorting("score"))" />
+                        <label class="btn btn-outline-primary" for="sortScore">By Score</label>
+
+                        <input type="radio" class="btn-check" name="sortOptions" id="sortWeight" checked="@(sortBy == "weight")" @onchange="@(() => ChangeSorting("weight"))" />
+                        <label class="btn btn-outline-primary" for="sortWeight">By Weight</label>
+
+                        <input type="radio" class="btn-check" name="sortOptions" id="sortName" checked="@(sortBy == "name")" @onchange="@(() => ChangeSorting("name"))" />
+                        <label class="btn btn-outline-primary" for="sortName">By Name</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Molecular Weight</th>
+                            <th>LogP</th>
+                            <th>H-Bond Donors</th>
+                            <th>H-Bond Acceptors</th>
+                            <th>Polarity</th>
+                            <th>Total Atoms</th>
+                            <th>Therapeutic Score</th>
+                            <th>Category</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var molecule in GetSortedMolecules())
+                        {
+                            <tr>
+                                <td>
+                                    <strong>@molecule.Name</strong>
+                                    <br>
+                                    <small class="text-muted">ID: @molecule.Id</small>
+                                </td>
+                                <td>
+                                    @molecule.MolecularWeight.ToString("F1") Da
+                                    <br>
+                                    <small class="text-muted">@GetMolecularWeightCategory(molecule.MolecularWeight)</small>
+                                </td>
+                                <td>
+                                    @molecule.LogP.ToString("F2")
+                                    <br>
+                                    <small class="text-muted">@GetLogPCategory(molecule.LogP)</small>
+                                </td>
+                                <td class="text-center">@molecule.HydrogenBondDonors</td>
+                                <td class="text-center">@molecule.HydrogenBondAcceptors</td>
+                                <td>
+                                    @molecule.Polarity.ToString("F2")
+                                    <br>
+                                    <div class="progress" style="height: 4px;">
+                                        <div class="progress-bar" role="progressbar" style="width: @(molecule.Polarity * 100)%"></div>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    @molecule.TotalAtoms
+                                    <br>
+                                    <small class="text-muted">C:@molecule.CarbonAtoms H:@molecule.HydrogenAtoms</small>
+                                </td>
+                                <td>
+                                    <span class="badge @GetScoreBadgeClass(molecule.TherapeuticScore) fs-6">
+                                        @molecule.TherapeuticScore.ToString("F1")
+                                    </span>
+                                    <br>
+                                    <div class="progress mt-1" style="height: 4px;">
+                                        <div class="progress-bar @GetScoreProgressClass(molecule.TherapeuticScore)" 
+                                             role="progressbar" style="width: @molecule.TherapeuticScore%"></div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge @GetCategoryBadgeClass(molecule.TherapeuticCategory)">
+                                        @molecule.TherapeuticCategory
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        <button class="btn btn-outline-info" @onclick="@(() => ShowDetails(molecule))">
+                                            <span class="oi oi-eye"></span>
+                                        </button>
+                                        <button class="btn btn-outline-danger" @onclick="@(() => DeleteMolecule(molecule.Id))">
+                                            <span class="oi oi-trash"></span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card">
+        <div class="card-body text-center text-muted py-5">
+            <span class="oi oi-beaker display-1 mb-3"></span>
+            <h5>No molecules found</h5>
+            <p>Generate some molecules using the <a href="/generator" class="text-decoration-none">Generator</a> to get started.</p>
+        </div>
+    </div>
+}
+
+@if (selectedMolecule != null)
+{
+    <div class="modal fade show" style="display: block; background-color: rgba(0,0,0,0.5);" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Molecule Details: @selectedMolecule.Name</h5>
+                    <button type="button" class="btn-close" @onclick="CloseDetails"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Chemical Properties</h6>
+                            <table class="table table-sm">
+                                <tr><td>Molecular Weight:</td><td>@selectedMolecule.MolecularWeight.ToString("F2") Da</td></tr>
+                                <tr><td>LogP:</td><td>@selectedMolecule.LogP.ToString("F2")</td></tr>
+                                <tr><td>Polarity:</td><td>@selectedMolecule.Polarity.ToString("F3")</td></tr>
+                                <tr><td>H-Bond Donors:</td><td>@selectedMolecule.HydrogenBondDonors</td></tr>
+                                <tr><td>H-Bond Acceptors:</td><td>@selectedMolecule.HydrogenBondAcceptors</td></tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Atomic Composition</h6>
+                            <table class="table table-sm">
+                                <tr><td>Carbon (C):</td><td>@selectedMolecule.CarbonAtoms</td></tr>
+                                <tr><td>Hydrogen (H):</td><td>@selectedMolecule.HydrogenAtoms</td></tr>
+                                <tr><td>Nitrogen (N):</td><td>@selectedMolecule.NitrogenAtoms</td></tr>
+                                <tr><td>Oxygen (O):</td><td>@selectedMolecule.OxygenAtoms</td></tr>
+                                <tr><td><strong>Total Atoms:</strong></td><td><strong>@selectedMolecule.TotalAtoms</strong></td></tr>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <h6 class="mt-4">Therapeutic Assessment</h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body text-center">
+                                    <h2 class="text-@GetScoreColor(selectedMolecule.TherapeuticScore)">
+                                        @selectedMolecule.TherapeuticScore.ToString("F1")
+                                    </h2>
+                                    <p class="mb-0">Therapeutic Score</p>
+                                    <span class="badge @GetCategoryBadgeClass(selectedMolecule.TherapeuticCategory)">
+                                        @selectedMolecule.TherapeuticCategory
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            @if (scoreBreakdown != null)
+                            {
+                                <h6>Score Breakdown</h6>
+                                @foreach (var component in scoreBreakdown)
+                                {
+                                    <div class="mb-2">
+                                        <div class="d-flex justify-content-between">
+                                            <small>@component.Key</small>
+                                            <small>@component.Value.ToString("F1")</small>
+                                        </div>
+                                        <div class="progress" style="height: 6px;">
+                                            <div class="progress-bar bg-info" role="progressbar" 
+                                                 style="width: @component.Value%"></div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <small class="text-muted">
+                            Created: @selectedMolecule.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss") UTC
+                        </small>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CloseDetails">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private List<Molecule>? molecules;
+    private List<Molecule>? filteredMolecules;
+    private Molecule? selectedMolecule;
+    private Dictionary<string, double>? scoreBreakdown;
+    private string searchTerm = string.Empty;
+    private string sortBy = "score";
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadMolecules();
+    }
+
+    private async Task LoadMolecules()
+    {
+        isLoading = true;
+        try
+        {
+            molecules = await DataService.GetAllMoleculesAsync();
+            filteredMolecules = molecules;
+        }
+        catch (Exception ex)
+        {
+            // Handle error
+            Console.WriteLine($"Error loading molecules: {ex.Message}");
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task SearchMolecules()
+    {
+        if (molecules == null) return;
+
+        if (string.IsNullOrWhiteSpace(searchTerm))
+        {
+            filteredMolecules = molecules;
+        }
+        else
+        {
+            filteredMolecules = await DataService.SearchMoleculesAsync(searchTerm);
+        }
+    }
+
+    private async Task OnSearchKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            await SearchMolecules();
+        }
+    }
+
+    private IEnumerable<Molecule> GetSortedMolecules()
+    {
+        if (filteredMolecules == null) return new List<Molecule>();
+
+        return sortBy switch
+        {
+            "score" => filteredMolecules.OrderByDescending(m => m.TherapeuticScore),
+            "weight" => filteredMolecules.OrderBy(m => m.MolecularWeight),
+            "name" => filteredMolecules.OrderBy(m => m.Name),
+            _ => filteredMolecules.OrderByDescending(m => m.TherapeuticScore)
+        };
+    }    private void ChangeSorting(string newSortBy)
+    {
+        sortBy = newSortBy;
+        StateHasChanged();
+    }
+
+    private void ShowDetails(Molecule molecule)
+    {
+        selectedMolecule = molecule;
+        scoreBreakdown = ScoringService.GetScoreBreakdown(molecule);
+    }
+
+    private void CloseDetails()
+    {
+        selectedMolecule = null;
+        scoreBreakdown = null;
+    }
+
+    private async Task DeleteMolecule(int id)
+    {
+        if (await JSRuntime.InvokeAsync<bool>("confirm", "Are you sure you want to delete this molecule?"))
+        {
+            var success = await DataService.DeleteMoleculeAsync(id);
+            if (success)
+            {
+                await LoadMolecules();
+            }
+        }
+    }
+
+    private async Task ExportAll()
+    {
+        if (molecules?.Any() != true) return;
+
+        var csv = "Name,MolecularWeight,LogP,HydrogenBondDonors,HydrogenBondAcceptors,Polarity,TherapeuticScore,Category,CreatedAt\n";
+        foreach (var molecule in molecules)
+        {
+            csv += $"{molecule.Name},{molecule.MolecularWeight},{molecule.LogP},{molecule.HydrogenBondDonors},{molecule.HydrogenBondAcceptors},{molecule.Polarity},{molecule.TherapeuticScore},{molecule.TherapeuticCategory},{molecule.CreatedAt:yyyy-MM-dd HH:mm:ss}\n";
+        }
+
+        var fileName = $"all_molecules_{DateTime.Now:yyyyMMdd_HHmmss}.csv";
+        await JSRuntime.InvokeVoidAsync("downloadFile", fileName, csv, "text/csv");
+    }
+
+    // Helper methods for styling
+    private string GetScoreBadgeClass(double score) => score switch
+    {
+        >= 80 => "bg-success",
+        >= 60 => "bg-primary", 
+        >= 40 => "bg-warning",
+        >= 20 => "bg-secondary",
+        _ => "bg-danger"
+    };
+
+    private string GetScoreProgressClass(double score) => score switch
+    {
+        >= 80 => "bg-success",
+        >= 60 => "bg-primary",
+        >= 40 => "bg-warning", 
+        >= 20 => "bg-secondary",
+        _ => "bg-danger"
+    };
+
+    private string GetScoreColor(double score) => score switch
+    {
+        >= 80 => "success",
+        >= 60 => "primary",
+        >= 40 => "warning",
+        >= 20 => "secondary", 
+        _ => "danger"
+    };
+
+    private string GetCategoryBadgeClass(string category) => category switch
+    {
+        "Excellent" => "bg-success",
+        "Good" => "bg-primary",
+        "Moderate" => "bg-warning",
+        "Poor" => "bg-secondary",
+        _ => "bg-danger"
+    };    private string GetMolecularWeightCategory(double weight) => weight switch
+    {
+        var w when w < 300 => "Light",
+        var w when w <= 500 => "Optimal",
+        _ => "Heavy"
+    };
+
+    private string GetLogPCategory(double logP) => logP switch
+    {
+        var lp when lp < 1 => "Hydrophilic",
+        var lp when lp <= 3 => "Balanced",
+        _ => "Lipophilic"
+    };
+}

@@ -1,0 +1,653 @@
+2025-05-28 16:34:09.209 -04:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+PRAGMA journal_mode = 'wal';
+2025-05-28 16:34:09.306 -04:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Molecules" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_Molecules" PRIMARY KEY AUTOINCREMENT,
+    "Name" TEXT NOT NULL,
+    "MolecularWeight" REAL NOT NULL,
+    "LogP" REAL NOT NULL,
+    "HydrogenBondDonors" INTEGER NOT NULL,
+    "HydrogenBondAcceptors" INTEGER NOT NULL,
+    "HydrogenAtoms" INTEGER NOT NULL,
+    "CarbonAtoms" INTEGER NOT NULL,
+    "NitrogenAtoms" INTEGER NOT NULL,
+    "OxygenAtoms" INTEGER NOT NULL,
+    "Polarity" REAL NOT NULL,
+    "TherapeuticScore" REAL NOT NULL,
+    "CreatedAt" TEXT NOT NULL DEFAULT (datetime('now'))
+);
+2025-05-28 16:34:09.308 -04:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Molecules_CreatedAt" ON "Molecules" ("CreatedAt");
+2025-05-28 16:34:09.310 -04:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Molecules_TherapeuticScore" ON "Molecules" ("TherapeuticScore");
+2025-05-28 16:34:09.387 -04:00 [INF] User profile is available. Using 'C:\Users\dnaal\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-05-28 16:34:09.505 -04:00 [INF] Starting Molecule Simulator application
+2025-05-28 16:34:09.578 -04:00 [INF] Now listening on: http://localhost:5142
+2025-05-28 16:34:09.580 -04:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-05-28 16:34:09.581 -04:00 [INF] Hosting environment: Development
+2025-05-28 16:34:09.582 -04:00 [INF] Content root path: D:\Coding\PharmaDiscover\MoleculeSimulator
+2025-05-28 16:41:08.499 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/?id=0c7cc71a-634d-4262-bdc4-fcceadecd9be&vscodeBrowserReqId=1748464868447 - null null
+2025-05-28 16:41:08.522 -04:00 [WRN] Failed to determine the https port for redirect.
+2025-05-28 16:41:08.536 -04:00 [INF] Executing endpoint '/_Host'
+2025-05-28 16:41:08.555 -04:00 [INF] Route matched with {page = "/_Host", action = "", controller = ""}. Executing page /_Host
+2025-05-28 16:41:08.570 -04:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-05-28 16:41:08.572 -04:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-05-28 16:41:08.701 -04:00 [INF] Executed page /_Host in 143.3735ms
+2025-05-28 16:41:08.703 -04:00 [INF] Executed endpoint '/_Host'
+2025-05-28 16:41:08.709 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/?id=0c7cc71a-634d-4262-bdc4-fcceadecd9be&vscodeBrowserReqId=1748464868447 - 200 null text/html; charset=utf-8 212.8556ms
+2025-05-28 16:41:08.716 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/_framework/blazor.server.js - null null
+2025-05-28 16:41:08.716 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/css/bootstrap/bootstrap.min.css - null null
+2025-05-28 16:41:08.717 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/css/site.css - null null
+2025-05-28 16:41:08.717 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/MoleculeSimulator.styles.css - null null
+2025-05-28 16:41:08.717 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/js/app.js - null null
+2025-05-28 16:41:08.722 -04:00 [INF] Executing endpoint 'Blazor static files'
+2025-05-28 16:41:08.736 -04:00 [INF] Sending file. Request path: '/js/app.js'. Physical path: 'D:\Coding\PharmaDiscover\MoleculeSimulator\wwwroot\js\app.js'
+2025-05-28 16:41:08.736 -04:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: 'D:\Coding\PharmaDiscover\MoleculeSimulator\wwwroot\css\site.css'
+2025-05-28 16:41:08.737 -04:00 [INF] Sending file. Request path: '/MoleculeSimulator.styles.css'. Physical path: 'D:\Coding\PharmaDiscover\MoleculeSimulator\obj\Debug\net8.0\scopedcss\bundle\MoleculeSimulator.styles.css'
+2025-05-28 16:41:08.739 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/js/app.js - 200 7477 text/javascript 21.9078ms
+2025-05-28 16:41:08.741 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/css/site.css - 200 12171 text/css 23.8617ms
+2025-05-28 16:41:08.742 -04:00 [INF] Sending file. Request path: '/css/bootstrap/bootstrap.min.css'. Physical path: 'D:\Coding\PharmaDiscover\MoleculeSimulator\wwwroot\css\bootstrap\bootstrap.min.css'
+2025-05-28 16:41:08.743 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/MoleculeSimulator.styles.css - 200 3025 text/css 26.0687ms
+2025-05-28 16:41:08.744 -04:00 [INF] Sending file. Request path: '/_framework/blazor.server.js'. Physical path: 'N/A'
+2025-05-28 16:41:08.752 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/css/bootstrap/bootstrap.min.css - 200 162720 text/css 35.8689ms
+2025-05-28 16:41:08.755 -04:00 [INF] Executed endpoint 'Blazor static files'
+2025-05-28 16:41:08.758 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/_framework/blazor.server.js - 200 151672 text/javascript 41.4386ms
+2025-05-28 16:41:08.765 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/css/open-iconic/font/css/open-iconic-bootstrap.min.css - null null
+2025-05-28 16:41:08.795 -04:00 [INF] Sending file. Request path: '/css/open-iconic/font/css/open-iconic-bootstrap.min.css'. Physical path: 'D:\Coding\PharmaDiscover\MoleculeSimulator\wwwroot\css\open-iconic\font\css\open-iconic-bootstrap.min.css'
+2025-05-28 16:41:08.797 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/css/open-iconic/font/css/open-iconic-bootstrap.min.css - 200 9395 text/css 32.4552ms
+2025-05-28 16:41:08.831 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/css/open-iconic/font/fonts/open-iconic.woff - null null
+2025-05-28 16:41:08.842 -04:00 [INF] Sending file. Request path: '/css/open-iconic/font/fonts/open-iconic.woff'. Physical path: 'D:\Coding\PharmaDiscover\MoleculeSimulator\wwwroot\css\open-iconic\font\fonts\open-iconic.woff'
+2025-05-28 16:41:08.846 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/css/open-iconic/font/fonts/open-iconic.woff - 200 14984 application/font-woff 14.4525ms
+2025-05-28 16:41:08.875 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/_blazor/initializers - null null
+2025-05-28 16:41:08.884 -04:00 [INF] Executing endpoint 'Blazor initializers'
+2025-05-28 16:41:08.890 -04:00 [INF] Executed endpoint 'Blazor initializers'
+2025-05-28 16:41:08.892 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/_blazor/initializers - 200 null application/json; charset=utf-8 16.2758ms
+2025-05-28 16:41:08.896 -04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5142/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-05-28 16:41:08.901 -04:00 [INF] Executing endpoint '/_blazor/negotiate'
+2025-05-28 16:41:08.906 -04:00 [INF] Executed endpoint '/_blazor/negotiate'
+2025-05-28 16:41:08.908 -04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5142/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 11.2792ms
+2025-05-28 16:41:08.921 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/_blazor?id=AfIVSv0VFdL4jXZujvu8eQ - null null
+2025-05-28 16:41:08.922 -04:00 [INF] Executing endpoint '/_blazor'
+2025-05-28 16:41:40.138 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/ - null null
+2025-05-28 16:41:40.142 -04:00 [INF] Executing endpoint '/_Host'
+2025-05-28 16:41:40.143 -04:00 [INF] Route matched with {page = "/_Host", action = "", controller = ""}. Executing page /_Host
+2025-05-28 16:41:40.146 -04:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-05-28 16:41:40.147 -04:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-05-28 16:41:40.161 -04:00 [INF] Executed page /_Host in 16.4295ms
+2025-05-28 16:41:40.163 -04:00 [INF] Executed endpoint '/_Host'
+2025-05-28 16:41:40.165 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/ - 200 null text/html; charset=utf-8 26.7034ms
+2025-05-28 16:41:40.178 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/css/bootstrap/bootstrap.min.css - null null
+2025-05-28 16:41:40.180 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/MoleculeSimulator.styles.css - null null
+2025-05-28 16:41:40.180 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/css/site.css - null null
+2025-05-28 16:41:40.182 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/_framework/blazor.server.js - null null
+2025-05-28 16:41:40.182 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/js/app.js - null null
+2025-05-28 16:41:40.186 -04:00 [INF] Sending file. Request path: '/css/bootstrap/bootstrap.min.css'. Physical path: 'D:\Coding\PharmaDiscover\MoleculeSimulator\wwwroot\css\bootstrap\bootstrap.min.css'
+2025-05-28 16:41:40.188 -04:00 [INF] Sending file. Request path: '/MoleculeSimulator.styles.css'. Physical path: 'D:\Coding\PharmaDiscover\MoleculeSimulator\obj\Debug\net8.0\scopedcss\bundle\MoleculeSimulator.styles.css'
+2025-05-28 16:41:40.192 -04:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: 'D:\Coding\PharmaDiscover\MoleculeSimulator\wwwroot\css\site.css'
+2025-05-28 16:41:40.194 -04:00 [INF] Executing endpoint 'Blazor static files'
+2025-05-28 16:41:40.198 -04:00 [INF] Sending file. Request path: '/js/app.js'. Physical path: 'D:\Coding\PharmaDiscover\MoleculeSimulator\wwwroot\js\app.js'
+2025-05-28 16:41:40.200 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/css/bootstrap/bootstrap.min.css - 200 162720 text/css 21.468ms
+2025-05-28 16:41:40.202 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/MoleculeSimulator.styles.css - 200 3025 text/css 22.2434ms
+2025-05-28 16:41:40.205 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/css/site.css - 200 12171 text/css 25.1524ms
+2025-05-28 16:41:40.210 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/js/app.js - 200 7477 text/javascript 27.528ms
+2025-05-28 16:41:40.210 -04:00 [INF] Sending file. Request path: '/_framework/blazor.server.js'. Physical path: 'N/A'
+2025-05-28 16:41:40.230 -04:00 [INF] Executed endpoint 'Blazor static files'
+2025-05-28 16:41:40.232 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/_framework/blazor.server.js - 200 151672 text/javascript 50.5311ms
+2025-05-28 16:41:40.237 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/css/open-iconic/font/css/open-iconic-bootstrap.min.css - null null
+2025-05-28 16:41:40.241 -04:00 [INF] Sending file. Request path: '/css/open-iconic/font/css/open-iconic-bootstrap.min.css'. Physical path: 'D:\Coding\PharmaDiscover\MoleculeSimulator\wwwroot\css\open-iconic\font\css\open-iconic-bootstrap.min.css'
+2025-05-28 16:41:40.243 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/css/open-iconic/font/css/open-iconic-bootstrap.min.css - 200 9395 text/css 5.7843ms
+2025-05-28 16:41:40.308 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/css/open-iconic/font/fonts/open-iconic.woff - null null
+2025-05-28 16:41:40.313 -04:00 [INF] Sending file. Request path: '/css/open-iconic/font/fonts/open-iconic.woff'. Physical path: 'D:\Coding\PharmaDiscover\MoleculeSimulator\wwwroot\css\open-iconic\font\fonts\open-iconic.woff'
+2025-05-28 16:41:40.315 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/css/open-iconic/font/fonts/open-iconic.woff - 200 14984 application/font-woff 6.9968ms
+2025-05-28 16:41:40.321 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/_blazor/initializers - null null
+2025-05-28 16:41:40.326 -04:00 [INF] Executing endpoint 'Blazor initializers'
+2025-05-28 16:41:40.329 -04:00 [INF] Executed endpoint 'Blazor initializers'
+2025-05-28 16:41:40.331 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/_blazor/initializers - 200 null application/json; charset=utf-8 9.8831ms
+2025-05-28 16:41:40.474 -04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5142/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-05-28 16:41:40.478 -04:00 [INF] Executing endpoint '/_blazor/negotiate'
+2025-05-28 16:41:40.480 -04:00 [INF] Executed endpoint '/_blazor/negotiate'
+2025-05-28 16:41:40.483 -04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5142/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 8.7081ms
+2025-05-28 16:41:40.489 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/favicon.png - null null
+2025-05-28 16:41:40.490 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/_blazor?id=AM3whfps8PhJ6qRX0D2wIQ - null null
+2025-05-28 16:41:40.494 -04:00 [INF] Sending file. Request path: '/favicon.png'. Physical path: 'D:\Coding\PharmaDiscover\MoleculeSimulator\wwwroot\favicon.png'
+2025-05-28 16:41:40.495 -04:00 [INF] Executing endpoint '/_blazor'
+2025-05-28 16:41:40.497 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/favicon.png - 200 1148 image/png 8.1801ms
+2025-05-28 16:42:17.213 -04:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "m"."Id", "m"."CarbonAtoms", "m"."CreatedAt", "m"."HydrogenAtoms", "m"."HydrogenBondAcceptors", "m"."HydrogenBondDonors", "m"."LogP", "m"."MolecularWeight", "m"."Name", "m"."NitrogenAtoms", "m"."OxygenAtoms", "m"."Polarity", "m"."TherapeuticScore"
+FROM "Molecules" AS "m"
+ORDER BY "m"."TherapeuticScore" DESC
+2025-05-28 16:47:03.870 -04:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "m"."Id", "m"."CarbonAtoms", "m"."CreatedAt", "m"."HydrogenAtoms", "m"."HydrogenBondAcceptors", "m"."HydrogenBondDonors", "m"."LogP", "m"."MolecularWeight", "m"."Name", "m"."NitrogenAtoms", "m"."OxygenAtoms", "m"."Polarity", "m"."TherapeuticScore"
+FROM "Molecules" AS "m"
+ORDER BY "m"."TherapeuticScore" DESC
+2025-05-28 16:47:15.243 -04:00 [INF] Executed DbCommand (5ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32), @p5='?' (DbType = Double), @p6='?' (DbType = Double), @p7='?' (Size = 12), @p8='?' (DbType = Int32), @p9='?' (DbType = Int32), @p10='?' (DbType = Double), @p11='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Molecules" ("CarbonAtoms", "CreatedAt", "HydrogenAtoms", "HydrogenBondAcceptors", "HydrogenBondDonors", "LogP", "MolecularWeight", "Name", "NitrogenAtoms", "OxygenAtoms", "Polarity", "TherapeuticScore")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11)
+RETURNING "Id";
+2025-05-28 16:47:15.253 -04:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32), @p5='?' (DbType = Double), @p6='?' (DbType = Double), @p7='?' (Size = 12), @p8='?' (DbType = Int32), @p9='?' (DbType = Int32), @p10='?' (DbType = Double), @p11='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Molecules" ("CarbonAtoms", "CreatedAt", "HydrogenAtoms", "HydrogenBondAcceptors", "HydrogenBondDonors", "LogP", "MolecularWeight", "Name", "NitrogenAtoms", "OxygenAtoms", "Polarity", "TherapeuticScore")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11)
+RETURNING "Id";
+2025-05-28 16:47:15.256 -04:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32), @p5='?' (DbType = Double), @p6='?' (DbType = Double), @p7='?' (Size = 13), @p8='?' (DbType = Int32), @p9='?' (DbType = Int32), @p10='?' (DbType = Double), @p11='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Molecules" ("CarbonAtoms", "CreatedAt", "HydrogenAtoms", "HydrogenBondAcceptors", "HydrogenBondDonors", "LogP", "MolecularWeight", "Name", "NitrogenAtoms", "OxygenAtoms", "Polarity", "TherapeuticScore")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11)
+RETURNING "Id";
+2025-05-28 16:47:15.260 -04:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32), @p5='?' (DbType = Double), @p6='?' (DbType = Double), @p7='?' (Size = 12), @p8='?' (DbType = Int32), @p9='?' (DbType = Int32), @p10='?' (DbType = Double), @p11='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Molecules" ("CarbonAtoms", "CreatedAt", "HydrogenAtoms", "HydrogenBondAcceptors", "HydrogenBondDonors", "LogP", "MolecularWeight", "Name", "NitrogenAtoms", "OxygenAtoms", "Polarity", "TherapeuticScore")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11)
+RETURNING "Id";
+2025-05-28 16:47:15.262 -04:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32), @p5='?' (DbType = Double), @p6='?' (DbType = Double), @p7='?' (Size = 12), @p8='?' (DbType = Int32), @p9='?' (DbType = Int32), @p10='?' (DbType = Double), @p11='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Molecules" ("CarbonAtoms", "CreatedAt", "HydrogenAtoms", "HydrogenBondAcceptors", "HydrogenBondDonors", "LogP", "MolecularWeight", "Name", "NitrogenAtoms", "OxygenAtoms", "Polarity", "TherapeuticScore")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11)
+RETURNING "Id";
+2025-05-28 16:47:15.263 -04:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32), @p5='?' (DbType = Double), @p6='?' (DbType = Double), @p7='?' (Size = 14), @p8='?' (DbType = Int32), @p9='?' (DbType = Int32), @p10='?' (DbType = Double), @p11='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Molecules" ("CarbonAtoms", "CreatedAt", "HydrogenAtoms", "HydrogenBondAcceptors", "HydrogenBondDonors", "LogP", "MolecularWeight", "Name", "NitrogenAtoms", "OxygenAtoms", "Polarity", "TherapeuticScore")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11)
+RETURNING "Id";
+2025-05-28 16:47:15.264 -04:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32), @p5='?' (DbType = Double), @p6='?' (DbType = Double), @p7='?' (Size = 13), @p8='?' (DbType = Int32), @p9='?' (DbType = Int32), @p10='?' (DbType = Double), @p11='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Molecules" ("CarbonAtoms", "CreatedAt", "HydrogenAtoms", "HydrogenBondAcceptors", "HydrogenBondDonors", "LogP", "MolecularWeight", "Name", "NitrogenAtoms", "OxygenAtoms", "Polarity", "TherapeuticScore")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11)
+RETURNING "Id";
+2025-05-28 16:47:15.266 -04:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32), @p5='?' (DbType = Double), @p6='?' (DbType = Double), @p7='?' (Size = 15), @p8='?' (DbType = Int32), @p9='?' (DbType = Int32), @p10='?' (DbType = Double), @p11='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Molecules" ("CarbonAtoms", "CreatedAt", "HydrogenAtoms", "HydrogenBondAcceptors", "HydrogenBondDonors", "LogP", "MolecularWeight", "Name", "NitrogenAtoms", "OxygenAtoms", "Polarity", "TherapeuticScore")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11)
+RETURNING "Id";
+2025-05-28 16:47:15.267 -04:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32), @p5='?' (DbType = Double), @p6='?' (DbType = Double), @p7='?' (Size = 16), @p8='?' (DbType = Int32), @p9='?' (DbType = Int32), @p10='?' (DbType = Double), @p11='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Molecules" ("CarbonAtoms", "CreatedAt", "HydrogenAtoms", "HydrogenBondAcceptors", "HydrogenBondDonors", "LogP", "MolecularWeight", "Name", "NitrogenAtoms", "OxygenAtoms", "Polarity", "TherapeuticScore")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11)
+RETURNING "Id";
+2025-05-28 16:47:15.269 -04:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32), @p5='?' (DbType = Double), @p6='?' (DbType = Double), @p7='?' (Size = 12), @p8='?' (DbType = Int32), @p9='?' (DbType = Int32), @p10='?' (DbType = Double), @p11='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Molecules" ("CarbonAtoms", "CreatedAt", "HydrogenAtoms", "HydrogenBondAcceptors", "HydrogenBondDonors", "LogP", "MolecularWeight", "Name", "NitrogenAtoms", "OxygenAtoms", "Polarity", "TherapeuticScore")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11)
+RETURNING "Id";
+2025-05-28 16:47:24.046 -04:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "m"."Id", "m"."CarbonAtoms", "m"."CreatedAt", "m"."HydrogenAtoms", "m"."HydrogenBondAcceptors", "m"."HydrogenBondDonors", "m"."LogP", "m"."MolecularWeight", "m"."Name", "m"."NitrogenAtoms", "m"."OxygenAtoms", "m"."Polarity", "m"."TherapeuticScore"
+FROM "Molecules" AS "m"
+ORDER BY "m"."TherapeuticScore" DESC
+2025-05-28 16:47:36.938 -04:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "m"."Id", "m"."CarbonAtoms", "m"."CreatedAt", "m"."HydrogenAtoms", "m"."HydrogenBondAcceptors", "m"."HydrogenBondDonors", "m"."LogP", "m"."MolecularWeight", "m"."Name", "m"."NitrogenAtoms", "m"."OxygenAtoms", "m"."Polarity", "m"."TherapeuticScore"
+FROM "Molecules" AS "m"
+ORDER BY "m"."TherapeuticScore" DESC
+2025-05-28 16:48:18.973 -04:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "m"."Id", "m"."CarbonAtoms", "m"."CreatedAt", "m"."HydrogenAtoms", "m"."HydrogenBondAcceptors", "m"."HydrogenBondDonors", "m"."LogP", "m"."MolecularWeight", "m"."Name", "m"."NitrogenAtoms", "m"."OxygenAtoms", "m"."Polarity", "m"."TherapeuticScore"
+FROM "Molecules" AS "m"
+ORDER BY "m"."TherapeuticScore" DESC
+2025-05-28 16:48:37.759 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/swagger?id=0c7cc71a-634d-4262-bdc4-fcceadecd9be&vscodeBrowserReqId=1748465317751 - null null
+2025-05-28 16:48:37.762 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/swagger?id=0c7cc71a-634d-4262-bdc4-fcceadecd9be&vscodeBrowserReqId=1748465317751 - 301 0 null 3.2708ms
+2025-05-28 16:48:37.765 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/swagger/index.html - null null
+2025-05-28 16:48:37.789 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/swagger/index.html - 200 null text/html;charset=utf-8 23.6306ms
+2025-05-28 16:48:37.798 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/swagger/index.css - null null
+2025-05-28 16:48:37.798 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/swagger/swagger-ui.css - null null
+2025-05-28 16:48:37.799 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/swagger/swagger-ui-bundle.js - null null
+2025-05-28 16:48:37.800 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/swagger/swagger-ui-standalone-preset.js - null null
+2025-05-28 16:48:37.801 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/swagger/index.js - null null
+2025-05-28 16:48:37.802 -04:00 [INF] Sending file. Request path: '/index.css'. Physical path: 'N/A'
+2025-05-28 16:48:37.806 -04:00 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2025-05-28 16:48:37.810 -04:00 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2025-05-28 16:48:37.811 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/swagger/index.js - 200 null application/javascript;charset=utf-8 10.0642ms
+2025-05-28 16:48:37.811 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/swagger/index.css - 200 202 text/css 13.3491ms
+2025-05-28 16:48:37.814 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/swagger/swagger-ui.css - 200 154949 text/css 15.732ms
+2025-05-28 16:48:37.815 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/swagger/swagger-ui-standalone-preset.js - 200 229223 text/javascript 14.5924ms
+2025-05-28 16:48:37.907 -04:00 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2025-05-28 16:48:37.911 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/swagger/swagger-ui-bundle.js - 200 1484234 text/javascript 111.5886ms
+2025-05-28 16:48:38.005 -04:00 [INF] Executed endpoint '/_blazor'
+2025-05-28 16:48:38.006 -04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5142/_blazor/disconnect - multipart/form-data; boundary=----WebKitFormBoundaryfN1z77GgUVYITMFh 359
+2025-05-28 16:48:38.007 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/_blazor?id=AfIVSv0VFdL4jXZujvu8eQ - 101 null null 449085.9469ms
+2025-05-28 16:48:38.010 -04:00 [INF] Executing endpoint 'Blazor disconnect'
+2025-05-28 16:48:38.022 -04:00 [INF] Executed endpoint 'Blazor disconnect'
+2025-05-28 16:48:38.024 -04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5142/_blazor/disconnect - 200 0 null 17.7922ms
+2025-05-28 16:48:38.053 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/swagger/v1/swagger.json - null null
+2025-05-28 16:48:38.115 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 61.5698ms
+2025-05-28 16:48:56.424 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/ - null null
+2025-05-28 16:48:56.429 -04:00 [INF] Executing endpoint '/_Host'
+2025-05-28 16:48:56.433 -04:00 [INF] Route matched with {page = "/_Host", action = "", controller = ""}. Executing page /_Host
+2025-05-28 16:48:56.438 -04:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-05-28 16:48:56.440 -04:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-05-28 16:48:56.447 -04:00 [INF] Executed page /_Host in 11.8545ms
+2025-05-28 16:48:56.450 -04:00 [INF] Executed endpoint '/_Host'
+2025-05-28 16:48:56.454 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/ - 200 null text/html; charset=utf-8 30.3156ms
+2025-05-28 16:48:56.461 -04:00 [INF] Executed endpoint '/_blazor'
+2025-05-28 16:48:56.462 -04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5142/_blazor/disconnect - multipart/form-data; boundary=----WebKitFormBoundaryMXB1U6chiair3BAk 359
+2025-05-28 16:48:56.463 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/_blazor?id=AM3whfps8PhJ6qRX0D2wIQ - 101 null null 435972.7503ms
+2025-05-28 16:48:56.466 -04:00 [INF] Executing endpoint 'Blazor disconnect'
+2025-05-28 16:48:56.478 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/css/site.css - null null
+2025-05-28 16:48:56.481 -04:00 [INF] Executed endpoint 'Blazor disconnect'
+2025-05-28 16:48:56.485 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/_framework/blazor.server.js - null null
+2025-05-28 16:48:56.486 -04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5142/_blazor/disconnect - 200 0 null 24.5505ms
+2025-05-28 16:48:56.487 -04:00 [INF] The file /css/site.css was not modified
+2025-05-28 16:48:56.489 -04:00 [INF] Executing endpoint 'Blazor static files'
+2025-05-28 16:48:56.496 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/css/site.css - 304 null text/css 17.7267ms
+2025-05-28 16:48:56.498 -04:00 [INF] The file /_framework/blazor.server.js was not modified
+2025-05-28 16:48:56.505 -04:00 [INF] Executed endpoint 'Blazor static files'
+2025-05-28 16:48:56.507 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/_framework/blazor.server.js - 304 null text/javascript 21.9235ms
+2025-05-28 16:48:56.522 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/_blazor/initializers - null null
+2025-05-28 16:48:56.527 -04:00 [INF] Executing endpoint 'Blazor initializers'
+2025-05-28 16:48:56.528 -04:00 [INF] Executed endpoint 'Blazor initializers'
+2025-05-28 16:48:56.530 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/_blazor/initializers - 200 null application/json; charset=utf-8 7.9589ms
+2025-05-28 16:48:56.631 -04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5142/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-05-28 16:48:56.640 -04:00 [INF] Executing endpoint '/_blazor/negotiate'
+2025-05-28 16:48:56.645 -04:00 [INF] Executed endpoint '/_blazor/negotiate'
+2025-05-28 16:48:56.650 -04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5142/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 18.7932ms
+2025-05-28 16:48:56.653 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/_blazor?id=ZWbwcSeg8ALVlu5upsUkAw - null null
+2025-05-28 16:48:56.673 -04:00 [INF] Executing endpoint '/_blazor'
+2025-05-28 16:49:15.180 -04:00 [ERR] Failed executing DbCommand (4ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = DateTime), @p2='?' (DbType = Int32), @p3='?' (DbType = Int32), @p4='?' (DbType = Int32), @p5='?' (DbType = Double), @p6='?' (DbType = Double), @p7='?' (Size = 12), @p8='?' (DbType = Int32), @p9='?' (DbType = Int32), @p10='?' (DbType = Double), @p11='?' (DbType = Double)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Molecules" ("CarbonAtoms", "CreatedAt", "HydrogenAtoms", "HydrogenBondAcceptors", "HydrogenBondDonors", "LogP", "MolecularWeight", "Name", "NitrogenAtoms", "OxygenAtoms", "Polarity", "TherapeuticScore")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11)
+RETURNING "Id";
+2025-05-28 16:49:15.274 -04:00 [ERR] An exception occurred in the database while saving changes for context type 'MoleculeSimulator.Data.AppDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+2025-05-28 16:49:15.302 -04:00 [ERR] Error saving 10 molecules
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChangesAsync(IList`1 entries, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at MoleculeSimulator.Services.MoleculeDataService.SaveMoleculesAsync(List`1 molecules) in D:\Coding\PharmaDiscover\MoleculeSimulator\Services\MoleculeDataService.cs:line 103
+2025-05-28 16:49:19.613 -04:00 [ERR] Failed executing DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "m"."Id", "m"."CarbonAtoms", "m"."CreatedAt", "m"."HydrogenAtoms", "m"."HydrogenBondAcceptors", "m"."HydrogenBondDonors", "m"."LogP", "m"."MolecularWeight", "m"."Name", "m"."NitrogenAtoms", "m"."OxygenAtoms", "m"."Polarity", "m"."TherapeuticScore"
+FROM "Molecules" AS "m"
+ORDER BY "m"."TherapeuticScore" DESC
+2025-05-28 16:49:19.623 -04:00 [ERR] An exception occurred while iterating over the results of a query for context type 'MoleculeSimulator.Data.AppDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2025-05-28 16:49:19.636 -04:00 [ERR] Error retrieving all molecules
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at MoleculeSimulator.Services.MoleculeDataService.GetAllMoleculesAsync() in D:\Coding\PharmaDiscover\MoleculeSimulator\Services\MoleculeDataService.cs:line 35
+2025-05-28 16:49:21.780 -04:00 [ERR] Failed executing DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "m"."Id", "m"."CarbonAtoms", "m"."CreatedAt", "m"."HydrogenAtoms", "m"."HydrogenBondAcceptors", "m"."HydrogenBondDonors", "m"."LogP", "m"."MolecularWeight", "m"."Name", "m"."NitrogenAtoms", "m"."OxygenAtoms", "m"."Polarity", "m"."TherapeuticScore"
+FROM "Molecules" AS "m"
+ORDER BY "m"."TherapeuticScore" DESC
+2025-05-28 16:49:21.787 -04:00 [ERR] An exception occurred while iterating over the results of a query for context type 'MoleculeSimulator.Data.AppDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2025-05-28 16:49:21.800 -04:00 [ERR] Error retrieving all molecules
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at MoleculeSimulator.Services.MoleculeDataService.GetAllMoleculesAsync() in D:\Coding\PharmaDiscover\MoleculeSimulator\Services\MoleculeDataService.cs:line 35
+2025-05-28 16:49:26.077 -04:00 [ERR] Failed executing DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "m"."Id", "m"."CarbonAtoms", "m"."CreatedAt", "m"."HydrogenAtoms", "m"."HydrogenBondAcceptors", "m"."HydrogenBondDonors", "m"."LogP", "m"."MolecularWeight", "m"."Name", "m"."NitrogenAtoms", "m"."OxygenAtoms", "m"."Polarity", "m"."TherapeuticScore"
+FROM "Molecules" AS "m"
+ORDER BY "m"."TherapeuticScore" DESC
+2025-05-28 16:49:26.085 -04:00 [ERR] An exception occurred while iterating over the results of a query for context type 'MoleculeSimulator.Data.AppDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2025-05-28 16:49:26.099 -04:00 [ERR] Error retrieving all molecules
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at MoleculeSimulator.Services.MoleculeDataService.GetAllMoleculesAsync() in D:\Coding\PharmaDiscover\MoleculeSimulator\Services\MoleculeDataService.cs:line 35
+2025-05-28 16:49:28.874 -04:00 [ERR] Failed executing DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "m"."Id", "m"."CarbonAtoms", "m"."CreatedAt", "m"."HydrogenAtoms", "m"."HydrogenBondAcceptors", "m"."HydrogenBondDonors", "m"."LogP", "m"."MolecularWeight", "m"."Name", "m"."NitrogenAtoms", "m"."OxygenAtoms", "m"."Polarity", "m"."TherapeuticScore"
+FROM "Molecules" AS "m"
+ORDER BY "m"."TherapeuticScore" DESC
+2025-05-28 16:49:28.882 -04:00 [ERR] An exception occurred while iterating over the results of a query for context type 'MoleculeSimulator.Data.AppDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2025-05-28 16:49:28.895 -04:00 [ERR] Error retrieving all molecules
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at MoleculeSimulator.Services.MoleculeDataService.GetAllMoleculesAsync() in D:\Coding\PharmaDiscover\MoleculeSimulator\Services\MoleculeDataService.cs:line 35
+2025-05-28 16:49:33.045 -04:00 [ERR] Failed executing DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "m"."Id", "m"."CarbonAtoms", "m"."CreatedAt", "m"."HydrogenAtoms", "m"."HydrogenBondAcceptors", "m"."HydrogenBondDonors", "m"."LogP", "m"."MolecularWeight", "m"."Name", "m"."NitrogenAtoms", "m"."OxygenAtoms", "m"."Polarity", "m"."TherapeuticScore"
+FROM "Molecules" AS "m"
+ORDER BY "m"."TherapeuticScore" DESC
+2025-05-28 16:49:33.053 -04:00 [ERR] An exception occurred while iterating over the results of a query for context type 'MoleculeSimulator.Data.AppDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2025-05-28 16:49:33.064 -04:00 [ERR] Error retrieving all molecules
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at MoleculeSimulator.Services.MoleculeDataService.GetAllMoleculesAsync() in D:\Coding\PharmaDiscover\MoleculeSimulator\Services\MoleculeDataService.cs:line 35
+2025-05-28 16:49:34.928 -04:00 [ERR] Failed executing DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "m"."Id", "m"."CarbonAtoms", "m"."CreatedAt", "m"."HydrogenAtoms", "m"."HydrogenBondAcceptors", "m"."HydrogenBondDonors", "m"."LogP", "m"."MolecularWeight", "m"."Name", "m"."NitrogenAtoms", "m"."OxygenAtoms", "m"."Polarity", "m"."TherapeuticScore"
+FROM "Molecules" AS "m"
+ORDER BY "m"."TherapeuticScore" DESC
+2025-05-28 16:49:34.935 -04:00 [ERR] An exception occurred while iterating over the results of a query for context type 'MoleculeSimulator.Data.AppDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2025-05-28 16:49:34.947 -04:00 [ERR] Error retrieving all molecules
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at MoleculeSimulator.Services.MoleculeDataService.GetAllMoleculesAsync() in D:\Coding\PharmaDiscover\MoleculeSimulator\Services\MoleculeDataService.cs:line 35
+2025-05-28 16:49:37.890 -04:00 [ERR] Failed executing DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "m"."Id", "m"."CarbonAtoms", "m"."CreatedAt", "m"."HydrogenAtoms", "m"."HydrogenBondAcceptors", "m"."HydrogenBondDonors", "m"."LogP", "m"."MolecularWeight", "m"."Name", "m"."NitrogenAtoms", "m"."OxygenAtoms", "m"."Polarity", "m"."TherapeuticScore"
+FROM "Molecules" AS "m"
+ORDER BY "m"."TherapeuticScore" DESC
+2025-05-28 16:49:37.898 -04:00 [ERR] An exception occurred while iterating over the results of a query for context type 'MoleculeSimulator.Data.AppDbContext'.
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2025-05-28 16:49:37.910 -04:00 [ERR] Error retrieving all molecules
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: Molecules'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at MoleculeSimulator.Services.MoleculeDataService.GetAllMoleculesAsync() in D:\Coding\PharmaDiscover\MoleculeSimulator\Services\MoleculeDataService.cs:line 35
+2025-05-28 16:49:40.187 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/ - null null
+2025-05-28 16:49:40.193 -04:00 [INF] Executing endpoint '/_Host'
+2025-05-28 16:49:40.196 -04:00 [INF] Route matched with {page = "/_Host", action = "", controller = ""}. Executing page /_Host
+2025-05-28 16:49:40.198 -04:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2025-05-28 16:49:40.200 -04:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2025-05-28 16:49:40.203 -04:00 [INF] Executed page /_Host in 5.2545ms
+2025-05-28 16:49:40.207 -04:00 [INF] Executed endpoint '/_Host'
+2025-05-28 16:49:40.209 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/ - 200 null text/html; charset=utf-8 21.6606ms
+2025-05-28 16:49:40.209 -04:00 [INF] Executed endpoint '/_blazor'
+2025-05-28 16:49:40.215 -04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5142/_blazor/disconnect - multipart/form-data; boundary=----WebKitFormBoundaryNXAtJkS0AtKGpDng 359
+2025-05-28 16:49:40.216 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/_blazor?id=ZWbwcSeg8ALVlu5upsUkAw - 101 null null 43563.31ms
+2025-05-28 16:49:40.223 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/_framework/blazor.server.js - null null
+2025-05-28 16:49:40.224 -04:00 [INF] Executing endpoint 'Blazor disconnect'
+2025-05-28 16:49:40.238 -04:00 [INF] Executing endpoint 'Blazor static files'
+2025-05-28 16:49:40.240 -04:00 [INF] Executed endpoint 'Blazor disconnect'
+2025-05-28 16:49:40.241 -04:00 [INF] The file /_framework/blazor.server.js was not modified
+2025-05-28 16:49:40.242 -04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5142/_blazor/disconnect - 200 0 null 27.3933ms
+2025-05-28 16:49:40.244 -04:00 [INF] Executed endpoint 'Blazor static files'
+2025-05-28 16:49:40.252 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/_framework/blazor.server.js - 304 null text/javascript 28.6173ms
+2025-05-28 16:49:40.259 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/_blazor/initializers - null null
+2025-05-28 16:49:40.263 -04:00 [INF] Executing endpoint 'Blazor initializers'
+2025-05-28 16:49:40.264 -04:00 [INF] Executed endpoint 'Blazor initializers'
+2025-05-28 16:49:40.265 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/_blazor/initializers - 200 null application/json; charset=utf-8 5.8306ms
+2025-05-28 16:49:40.315 -04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5142/_blazor/negotiate?negotiateVersion=1 - null 0
+2025-05-28 16:49:40.321 -04:00 [INF] Executing endpoint '/_blazor/negotiate'
+2025-05-28 16:49:40.323 -04:00 [INF] Executed endpoint '/_blazor/negotiate'
+2025-05-28 16:49:40.324 -04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5142/_blazor/negotiate?negotiateVersion=1 - 200 316 application/json 9.0435ms
+2025-05-28 16:49:40.328 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5142/_blazor?id=XPcO8xfmXICfazlIGDluwg - null null
+2025-05-28 16:49:40.332 -04:00 [INF] Executing endpoint '/_blazor'
+2025-05-28 16:49:58.399 -04:00 [INF] Executed endpoint '/_blazor'
+2025-05-28 16:49:58.406 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5142/_blazor?id=XPcO8xfmXICfazlIGDluwg - 101 null null 18077.5299ms
+2025-05-28 16:49:58.492 -04:00 [INF] Request starting HTTP/1.1 POST http://localhost:5142/_blazor/disconnect - multipart/form-data; boundary=----WebKitFormBoundarynLmXwqcosbRfAXal 359
+2025-05-28 16:49:58.497 -04:00 [INF] Executing endpoint 'Blazor disconnect'
+2025-05-28 16:49:58.500 -04:00 [INF] Executed endpoint 'Blazor disconnect'
+2025-05-28 16:49:58.502 -04:00 [INF] Request finished HTTP/1.1 POST http://localhost:5142/_blazor/disconnect - 499 null null 9.9709ms

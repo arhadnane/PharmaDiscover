@@ -1,0 +1,432 @@
+@page "/statistics"
+@using MoleculeSimulator.Models
+@using MoleculeSimulator.Services
+@inject IMoleculeDataService DataService
+
+<h2>📊 Molecule Statistics</h2>
+<p class="text-muted">Analyze patterns and distributions in your molecular database</p>
+
+@if (isLoading)
+{
+    <div class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2 text-muted">Loading statistics...</p>
+    </div>
+}
+else if (molecules?.Any() == true)
+{
+    <div class="row">
+        <!-- Overview Cards -->
+        <div class="col-md-3 mb-4">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="mb-0">@molecules.Count</h4>
+                            <p class="mb-0">Total Molecules</p>
+                        </div>
+                        <span class="oi oi-beaker display-6"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="mb-0">@avgTherapeuticScore.ToString("F1")</h4>
+                            <p class="mb-0">Avg Therapeutic Score</p>
+                        </div>
+                        <span class="oi oi-heart display-6"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="mb-0">@bestMolecule?.TherapeuticScore.ToString("F1")</h4>
+                            <p class="mb-0">Highest Score</p>
+                        </div>
+                        <span class="oi oi-star display-6"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+            <div class="card bg-warning text-white">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="mb-0">@avgMolecularWeight.ToString("F0")</h4>
+                            <p class="mb-0">Avg Mol. Weight</p>
+                        </div>
+                        <span class="oi oi-calculator display-6"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Therapeutic Category Distribution -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Therapeutic Category Distribution</h5>
+                </div>
+                <div class="card-body">
+                    @foreach (var category in categoryDistribution)
+                    {
+                        var percentage = (double)category.Value / molecules.Count * 100;
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span class="badge @GetCategoryBadgeClass(category.Key)">@category.Key</span>
+                                <span>@category.Value molecules (@percentage.ToString("F1")%)</span>
+                            </div>
+                            <div class="progress mt-1">
+                                <div class="progress-bar @GetCategoryProgressClass(category.Key)" 
+                                     role="progressbar" style="width: @percentage%"></div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Molecular Weight Distribution -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Molecular Weight Distribution</h5>
+                </div>
+                <div class="card-body">
+                    @foreach (var range in weightRanges)
+                    {
+                        var count = molecules.Count(m => m.MolecularWeight >= range.Min && m.MolecularWeight < range.Max);
+                        var percentage = (double)count / molecules.Count * 100;
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span>@range.Label</span>
+                                <span>@count molecules (@percentage.ToString("F1")%)</span>
+                            </div>
+                            <div class="progress mt-1">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: @percentage%"></div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- LogP Distribution -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">LogP Distribution</h5>
+                </div>
+                <div class="card-body">
+                    @foreach (var range in logPRanges)
+                    {
+                        var count = molecules.Count(m => m.LogP >= range.Min && m.LogP < range.Max);
+                        var percentage = (double)count / molecules.Count * 100;
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span>@range.Label</span>
+                                <span>@count molecules (@percentage.ToString("F1")%)</span>
+                            </div>
+                            <div class="progress mt-1">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: @percentage%"></div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Scoring Molecules -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Top 10 Scoring Molecules</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Name</th>
+                                    <th>Score</th>
+                                    <th>Category</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{int rank = 1;}
+                                @foreach (var molecule in topMolecules)
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (rank <= 3)
+                                            {
+                                                <span class="badge @GetRankBadgeClass(rank)">@rank</span>
+                                            }
+                                            else
+                                            {
+                                                <span>@rank</span>
+                                            }
+                                        </td>
+                                        <td>@molecule.Name</td>
+                                        <td>
+                                            <span class="badge @GetScoreBadgeClass(molecule.TherapeuticScore)">
+                                                @molecule.TherapeuticScore.ToString("F1")
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge @GetCategoryBadgeClass(molecule.TherapeuticCategory)">
+                                                @molecule.TherapeuticCategory
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    rank++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Summary Statistics -->
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Summary Statistics</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h6>Therapeutic Scores</h6>
+                            <table class="table table-sm">
+                                <tr><td>Average:</td><td>@avgTherapeuticScore.ToString("F2")</td></tr>
+                                <tr><td>Median:</td><td>@medianTherapeuticScore.ToString("F2")</td></tr>
+                                <tr><td>Highest:</td><td>@maxTherapeuticScore.ToString("F2")</td></tr>
+                                <tr><td>Lowest:</td><td>@minTherapeuticScore.ToString("F2")</td></tr>
+                            </table>
+                        </div>
+                        <div class="col-md-3">
+                            <h6>Molecular Weight (Da)</h6>
+                            <table class="table table-sm">
+                                <tr><td>Average:</td><td>@avgMolecularWeight.ToString("F1")</td></tr>
+                                <tr><td>Median:</td><td>@medianMolecularWeight.ToString("F1")</td></tr>
+                                <tr><td>Highest:</td><td>@maxMolecularWeight.ToString("F1")</td></tr>
+                                <tr><td>Lowest:</td><td>@minMolecularWeight.ToString("F1")</td></tr>
+                            </table>
+                        </div>
+                        <div class="col-md-3">
+                            <h6>LogP Values</h6>
+                            <table class="table table-sm">
+                                <tr><td>Average:</td><td>@avgLogP.ToString("F2")</td></tr>
+                                <tr><td>Median:</td><td>@medianLogP.ToString("F2")</td></tr>
+                                <tr><td>Highest:</td><td>@maxLogP.ToString("F2")</td></tr>
+                                <tr><td>Lowest:</td><td>@minLogP.ToString("F2")</td></tr>
+                            </table>
+                        </div>
+                        <div class="col-md-3">
+                            <h6>Drug-like Properties</h6>
+                            <table class="table table-sm">
+                                <tr><td>Lipinski Compliant:</td><td>@lipinskiCompliant (@((double)lipinskiCompliant/molecules.Count*100).ToString("F1")%)</td></tr>
+                                <tr><td>MW 300-500 Da:</td><td>@optimalWeight</td></tr>
+                                <tr><td>LogP 1-3:</td><td>@optimalLogP</td></tr>
+                                <tr><td>≤5 H-Donors:</td><td>@optimalHBD</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card">
+        <div class="card-body text-center text-muted py-5">
+            <span class="oi oi-bar-chart display-1 mb-3"></span>
+            <h5>No data available</h5>
+            <p>Generate some molecules using the <a href="/generator" class="text-decoration-none">Generator</a> to see statistics.</p>
+        </div>
+    </div>
+}
+
+@code {
+    private List<Molecule>? molecules;
+    private bool isLoading = true;
+
+    // Statistics
+    private double avgTherapeuticScore;
+    private double medianTherapeuticScore;
+    private double maxTherapeuticScore;
+    private double minTherapeuticScore;
+    private double avgMolecularWeight;
+    private double medianMolecularWeight;
+    private double maxMolecularWeight;
+    private double minMolecularWeight;
+    private double avgLogP;
+    private double medianLogP;
+    private double maxLogP;
+    private double minLogP;
+    private Molecule? bestMolecule;
+    private List<Molecule> topMolecules = new();
+    private Dictionary<string, int> categoryDistribution = new();
+    private int lipinskiCompliant;
+    private int optimalWeight;
+    private int optimalLogP;
+    private int optimalHBD;
+
+    // Distribution ranges
+    private readonly List<(double Min, double Max, string Label)> weightRanges = new()
+    {
+        (0, 200, "< 200 Da (Very Light)"),
+        (200, 300, "200-300 Da (Light)"),
+        (300, 500, "300-500 Da (Optimal)"),
+        (500, 700, "500-700 Da (Heavy)"),
+        (700, double.MaxValue, "> 700 Da (Very Heavy)")
+    };
+
+    private readonly List<(double Min, double Max, string Label)> logPRanges = new()
+    {
+        (double.MinValue, 0, "< 0 (Very Hydrophilic)"),
+        (0, 1, "0-1 (Hydrophilic)"),
+        (1, 3, "1-3 (Optimal)"),
+        (3, 5, "3-5 (Lipophilic)"),
+        (5, double.MaxValue, "> 5 (Very Lipophilic)")
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadStatistics();
+    }
+
+    private async Task LoadStatistics()
+    {
+        isLoading = true;
+        try
+        {
+            molecules = await DataService.GetAllMoleculesAsync();
+            if (molecules?.Any() == true)
+            {
+                CalculateStatistics();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading statistics: {ex.Message}");
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void CalculateStatistics()
+    {
+        if (molecules?.Any() != true) return;
+
+        // Basic statistics
+        avgTherapeuticScore = molecules.Average(m => m.TherapeuticScore);
+        medianTherapeuticScore = GetMedian(molecules.Select(m => m.TherapeuticScore));
+        maxTherapeuticScore = molecules.Max(m => m.TherapeuticScore);
+        minTherapeuticScore = molecules.Min(m => m.TherapeuticScore);
+
+        avgMolecularWeight = molecules.Average(m => m.MolecularWeight);
+        medianMolecularWeight = GetMedian(molecules.Select(m => m.MolecularWeight));
+        maxMolecularWeight = molecules.Max(m => m.MolecularWeight);
+        minMolecularWeight = molecules.Min(m => m.MolecularWeight);
+
+        avgLogP = molecules.Average(m => m.LogP);
+        medianLogP = GetMedian(molecules.Select(m => m.LogP));
+        maxLogP = molecules.Max(m => m.LogP);
+        minLogP = molecules.Min(m => m.LogP);
+
+        // Best molecule
+        bestMolecule = molecules.OrderByDescending(m => m.TherapeuticScore).First();
+
+        // Top molecules
+        topMolecules = molecules.OrderByDescending(m => m.TherapeuticScore).Take(10).ToList();
+
+        // Category distribution
+        categoryDistribution = molecules
+            .GroupBy(m => m.TherapeuticCategory)
+            .ToDictionary(g => g.Key, g => g.Count());
+
+        // Drug-likeness statistics
+        lipinskiCompliant = molecules.Count(m => 
+            m.MolecularWeight <= 500 &&
+            m.LogP <= 5 &&
+            m.HydrogenBondDonors <= 5 &&
+            m.HydrogenBondAcceptors <= 10);
+
+        optimalWeight = molecules.Count(m => m.MolecularWeight >= 300 && m.MolecularWeight <= 500);
+        optimalLogP = molecules.Count(m => m.LogP >= 1 && m.LogP <= 3);
+        optimalHBD = molecules.Count(m => m.HydrogenBondDonors <= 5);
+    }
+
+    private double GetMedian(IEnumerable<double> values)
+    {
+        var sorted = values.OrderBy(x => x).ToArray();
+        var count = sorted.Length;
+        if (count % 2 == 0)
+        {
+            return (sorted[count / 2 - 1] + sorted[count / 2]) / 2.0;
+        }
+        return sorted[count / 2];
+    }
+
+    // Helper methods for styling
+    private string GetCategoryBadgeClass(string category) => category switch
+    {
+        "Excellent" => "bg-success",
+        "Good" => "bg-primary",
+        "Moderate" => "bg-warning",
+        "Poor" => "bg-secondary",
+        _ => "bg-danger"
+    };
+
+    private string GetCategoryProgressClass(string category) => category switch
+    {
+        "Excellent" => "bg-success",
+        "Good" => "bg-primary",
+        "Moderate" => "bg-warning",
+        "Poor" => "bg-secondary",
+        _ => "bg-danger"
+    };
+
+    private string GetScoreBadgeClass(double score) => score switch
+    {
+        >= 80 => "bg-success",
+        >= 60 => "bg-primary",
+        >= 40 => "bg-warning",
+        >= 20 => "bg-secondary",
+        _ => "bg-danger"
+    };
+
+    private string GetRankBadgeClass(int rank) => rank switch
+    {
+        1 => "bg-warning",
+        2 => "bg-secondary",
+        3 => "bg-success",
+        _ => "bg-primary"
+    };
+}

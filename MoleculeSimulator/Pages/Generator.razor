@@ -1,0 +1,247 @@
+@page "/generator"
+@using MoleculeSimulator.Models
+@using MoleculeSimulator.Services
+@inject IMoleculeGeneratorService MoleculeGenerator
+@inject IMoleculeDataService DataService
+@inject IJSRuntime JSRuntime
+
+<h2>🧪 Molecule Generator</h2>
+<p class="text-muted">Generate synthetic molecules with customizable parameters</p>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Generation Parameters</h5>
+            </div>
+            <div class="card-body">
+                <EditForm Model="@request" OnValidSubmit="@GenerateMolecules">
+                    <DataAnnotationsValidator />
+
+                    <div class="mb-3">
+                        <label class="form-label">Number of Molecules</label>
+                        <InputNumber @bind-Value="request.Count" class="form-control" min="1" max="1000" />
+                        <ValidationMessage For="@(() => request.Count)" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Molecular Weight Range (Da)</label>
+                        <div class="row">
+                            <div class="col-6">
+                                <InputNumber @bind-Value="request.MinMolecularWeight" class="form-control" placeholder="Min" />
+                            </div>
+                            <div class="col-6">
+                                <InputNumber @bind-Value="request.MaxMolecularWeight" class="form-control" placeholder="Max" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">LogP Range</label>
+                        <div class="row">
+                            <div class="col-6">
+                                <InputNumber @bind-Value="request.MinLogP" class="form-control" placeholder="Min" />
+                            </div>
+                            <div class="col-6">
+                                <InputNumber @bind-Value="request.MaxLogP" class="form-control" placeholder="Max" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <InputCheckbox @bind-Value="request.SaveToDatabase" class="form-check-input" id="saveToDb" />
+                            <label class="form-check-label" for="saveToDb">
+                                Save to Database
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100" disabled="@isGenerating">
+                        @if (isGenerating)
+                        {
+                            <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                            <span>Generating...</span>
+                        }
+                        else
+                        {
+                            <span class="oi oi-cog me-2"></span>
+                            <span>Generate Molecules</span>
+                        }
+                    </button>
+                </EditForm>
+
+                @if (!string.IsNullOrEmpty(statusMessage))
+                {
+                    <div class="alert alert-success mt-3" role="alert">
+                        @statusMessage
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        @if (generatedMolecules?.Any() == true)
+        {
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Generated Molecules (@generatedMolecules.Count)</h5>
+                    <div>
+                        <button class="btn btn-sm btn-outline-primary me-2" @onclick="ExportToCsv">
+                            <span class="oi oi-data-transfer-download"></span> Export CSV
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary" @onclick="ClearResults">
+                            <span class="oi oi-trash"></span> Clear
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>MW (Da)</th>
+                                    <th>LogP</th>
+                                    <th>H-Donors</th>
+                                    <th>H-Acceptors</th>
+                                    <th>Score</th>
+                                    <th>Category</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var molecule in generatedMolecules.OrderByDescending(m => m.TherapeuticScore))
+                                {
+                                    <tr>
+                                        <td>
+                                            <strong>@molecule.Name</strong>
+                                        </td>
+                                        <td>@molecule.MolecularWeight.ToString("F1")</td>
+                                        <td>@molecule.LogP.ToString("F2")</td>
+                                        <td>@molecule.HydrogenBondDonors</td>
+                                        <td>@molecule.HydrogenBondAcceptors</td>
+                                        <td>
+                                            <span class="badge @GetScoreBadgeClass(molecule.TherapeuticScore)">
+                                                @molecule.TherapeuticScore.ToString("F1")
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge @GetCategoryBadgeClass(molecule.TherapeuticCategory)">
+                                                @molecule.TherapeuticCategory
+                                            </span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card">
+                <div class="card-body text-center text-muted">
+                    <span class="oi oi-beaker display-1 mb-3"></span>
+                    <h5>No molecules generated yet</h5>
+                    <p>Use the form on the left to generate synthetic molecules</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    private MoleculeGenerationRequest request = new();
+    private List<Molecule>? generatedMolecules;
+    private bool isGenerating = false;
+    private string statusMessage = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        // Set default values
+        request.Count = 10;
+        request.MinMolecularWeight = 200;
+        request.MaxMolecularWeight = 800;
+        request.MinLogP = -2.0;
+        request.MaxLogP = 5.0;
+    }
+
+    private async Task GenerateMolecules()
+    {
+        try
+        {
+            isGenerating = true;
+            statusMessage = string.Empty;
+            StateHasChanged();
+
+            await Task.Delay(500); // Simulate some processing time
+
+            generatedMolecules = MoleculeGenerator.GenerateMolecules(request);
+
+            if (request.SaveToDatabase)
+            {
+                await DataService.SaveMoleculesAsync(generatedMolecules);
+                statusMessage = $"Successfully generated and saved {generatedMolecules.Count} molecules to database!";
+            }
+            else
+            {
+                statusMessage = $"Successfully generated {generatedMolecules.Count} molecules!";
+            }
+        }
+        catch (Exception ex)
+        {
+            statusMessage = $"Error generating molecules: {ex.Message}";
+        }
+        finally
+        {
+            isGenerating = false;
+            StateHasChanged();
+        }
+    }
+
+    private async Task ExportToCsv()
+    {
+        if (generatedMolecules?.Any() != true) return;
+
+        var csv = "Name,MolecularWeight,LogP,HydrogenBondDonors,HydrogenBondAcceptors,Polarity,TherapeuticScore,Category\n";
+        foreach (var molecule in generatedMolecules)
+        {
+            csv += $"{molecule.Name},{molecule.MolecularWeight},{molecule.LogP},{molecule.HydrogenBondDonors},{molecule.HydrogenBondAcceptors},{molecule.Polarity},{molecule.TherapeuticScore},{molecule.TherapeuticCategory}\n";
+        }
+
+        var fileName = $"molecules_{DateTime.Now:yyyyMMdd_HHmmss}.csv";
+        await JSRuntime.InvokeVoidAsync("downloadFile", fileName, csv, "text/csv");
+    }
+
+    private void ClearResults()
+    {
+        generatedMolecules = null;
+        statusMessage = string.Empty;
+    }
+
+    private string GetScoreBadgeClass(double score)
+    {
+        return score switch
+        {
+            >= 80 => "bg-success",
+            >= 60 => "bg-primary",
+            >= 40 => "bg-warning",
+            >= 20 => "bg-secondary",
+            _ => "bg-danger"
+        };
+    }
+
+    private string GetCategoryBadgeClass(string category)
+    {
+        return category switch
+        {
+            "Excellent" => "bg-success",
+            "Good" => "bg-primary",
+            "Moderate" => "bg-warning",
+            "Poor" => "bg-secondary",
+            _ => "bg-danger"
+        };
+    }
+}
